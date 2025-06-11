@@ -3,13 +3,15 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --black100: #333F47;
 }
 
 @theme inline {
+  --font-alata: var(--font-alata);
+  --font-rethink: var(--font-rethink);
+  --color-black100: var(--black100);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,4 +25,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+li,button{
+  cursor: pointer;
 }
