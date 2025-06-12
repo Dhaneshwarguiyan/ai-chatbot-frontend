@@ -1,11 +1,7 @@
-import Navbar from "./component/Navbar";
-import ChatWindow from "./component/ChatWindow";
-
 export default function Home() {
   return (
-    <div className="flex flex-col items-center">
-        <Navbar />
-        <ChatWindow />
-    </div>
+        <div className="w-full h-full flex justify-center items-center">
+          <span>Please Login</span>
+        </div>
   );
 }

@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import Providers from "./Providers";
+import Navbar from "@/component/Navbar";
+import Hero from "@/component/Hero";
 import { Alata,Rethink_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -29,7 +32,12 @@ export default function RootLayout({
       <body
         className={`${alataSans.variable} ${rethinkSans.variable} antialiased`}
       >
-        {children}
+        <Providers>
+          <Navbar />
+          <Hero>
+            {children}
+          </Hero>
+        </Providers>
       </body>
     </html>
   );
