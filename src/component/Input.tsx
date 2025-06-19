@@ -4,7 +4,7 @@ import Button from './Button'
 import { useSession } from 'next-auth/react'
 import { useDispatch } from 'react-redux'
 import { addMessage } from '@/slices/messageSlice'
-import { chatBot } from '@/utils/chatCall'
+import axios from 'axios'
 
 
 const Input = () => {
@@ -27,14 +27,27 @@ const Input = () => {
     setData("");
   }
 
-  const chat = async(text:string)=>{
-    const {data} = await chatBot(text);
-    const message = {
-        text:data.reply,
-        sender:"bot"
-    };
-    dispatch(addMessage(message));
-  }
+  const chat = async (text: string) => {
+    try {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/chat`,{
+        message: text,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const message = {
+        text: response.data.reply,
+        sender: "bot",
+      };
+    
+      dispatch(addMessage(message));
+      return response;
+    } catch (error) {
+      console.error("Error in chatBot:", error);
+      return null; // Handle error appropriately
+    }
+}
   return (
     <div >
       <form className='w-full border border-border rounded-lg py-2 px-4 flex z-0'>

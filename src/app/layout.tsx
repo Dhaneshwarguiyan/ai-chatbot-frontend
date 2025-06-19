@@ -2,20 +2,7 @@ import type { Metadata } from "next";
 import Providers from "./Providers";
 import Navbar from "@/component/Navbar";
 import Hero from "@/component/Hero";
-import { Alata,Rethink_Sans } from "next/font/google";
 import "./globals.css";
-
-const alataSans = Alata({
-  variable: "--font-alata",
-  subsets: ['latin'],
-  weight: '400'
-})
-
-const rethinkSans = Rethink_Sans({
-  variable: "--font-rethink",
-  subsets: ['latin'],
-  weight: '400'
-})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,9 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${alataSans.variable} ${rethinkSans.variable} antialiased`}
-      >
+      <body>
         <Providers>
           <Navbar />
           <Hero>

@@ -19,26 +19,41 @@ export const authOptions:NextAuthOptions = {
 
         credentials: {
           email: { label: "email", type: "text", placeholder: "jsmith" },
+          name: { label: "name", type: "text", placeholder: "jsmith" },
           password: { label: "Password", type: "password" }
         },
         async authorize(credentials) {
             if (!credentials) {
                 throw new Error('Missing credentials');
             }
-            const { email, password } = credentials;
+            const { name, email, password } = credentials;
 
             try {
+                let response;
                 // Call your backend API to validate the user's credentials
-                const response = await fetch(`${process.env.BACKEND_URL}/api/user/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email: email, password }),
-                });
-        
+                console.log(name,email,password);
+                if(name){
+                    console.log("signup"); 
+                     response = await fetch(`${process.env.BACKEND_URL}/api/user/signup`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ name:name,email: email, password }),
+                    });
+                }else{
+                    console.log("signin");
+                     response = await fetch(`${process.env.BACKEND_URL}/api/user/signin`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email: email, password }),
+                    });
+                }
+                console.log(response);
                 if (!response.ok) {
-                    throw new Error('Invalid credentials');
+                    throw new Error('Try again');
                 }
         
                 const user = await response.json();

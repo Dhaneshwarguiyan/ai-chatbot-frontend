@@ -4,6 +4,8 @@ import Button from "@/component/Button";
 import InputForm from "@/component/InputForm";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface signUpPropType {
     name:string;
@@ -13,6 +15,7 @@ interface signUpPropType {
 
 
 export default function Signup() {
+    const router = useRouter();
     const [formData,setFormData] = useState<signUpPropType>({
         name:"",
         email:"",
@@ -29,11 +32,27 @@ export default function Signup() {
             return updatedData;
         })
     }
-    const submitHandler = (e:React.MouseEvent<HTMLDivElement>)=>{
+    const submitHandler = async (e:React.MouseEvent<HTMLDivElement>)=>{
         e.preventDefault();
         if(isButtonActive){
-            console.log(formData);
-            // navigate('/dashboard')
+                        try {
+                            const result = await signIn("credentials", {
+                                redirect: false, // Prevent automatic redirection
+                                name: formData.name,
+                                email: formData.email,
+                                password: formData.password,
+                            });
+                
+                            if (result?.error) {
+                                alert("Invalid email or password");
+                            } else {
+                                // Redirect to the dashboard or another page
+                                router.push("/");
+                            }
+                        } catch (error) {
+                            console.error("Error during sign-in:", error);
+                            alert("An error occurred. Please try again.");
+                        }
         }
     }
     const checkActive = (formData:signUpPropType)=>{

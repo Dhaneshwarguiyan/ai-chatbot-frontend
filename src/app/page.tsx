@@ -4,10 +4,10 @@ import MessageTile from "@/component/MessageTile";
 import { RootState } from "@/store/store";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { chatBot } from "../utils/chatCall";
 import { addMessage } from "@/slices/messageSlice";
 import { useSession } from "next-auth/react";
 import Display from "@/component/Display";
+import axios from "axios";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -21,15 +21,28 @@ export default function Home() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   },[messages])
-
-  const chat = async(text:string)=>{
-    const {data} = await chatBot(text);
-    const message = {
-        text:data.reply,
-        sender:"bot"
-    };
-    dispatch(addMessage(message));
+  const chat = async (text: string) => {
+      try {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/chat`,{
+          message: text,
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const message = {
+          text: response.data.reply,
+          sender: "bot",
+        };
+      
+        dispatch(addMessage(message));
+        return response;
+      } catch (error) {
+        console.error("Error in chatBot:", error);
+        return null; // Handle error appropriately
+      }
   }
+
 
   useEffect(()=>{
     chat("Hello");
