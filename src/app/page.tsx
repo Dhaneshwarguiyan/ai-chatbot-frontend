@@ -4,9 +4,10 @@ import MessageTile from "@/component/MessageTile";
 import { RootState } from "@/store/store";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { chatBot } from "./utils/chatCall";
+import { chatBot } from "../utils/chatCall";
 import { addMessage } from "@/slices/messageSlice";
 import { useSession } from "next-auth/react";
+import Display from "@/component/Display";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -46,9 +47,7 @@ export default function Home() {
             }
             </div>
             : 
-            <div>
-              Please Login to use our services
-            </div>
+            <Display />
           }
         </div>
   );

@@ -4,7 +4,7 @@ import Button from './Button'
 import { useSession } from 'next-auth/react'
 import { useDispatch } from 'react-redux'
 import { addMessage } from '@/slices/messageSlice'
-import { chatBot } from '@/app/utils/chatCall'
+import { chatBot } from '@/utils/chatCall'
 
 
 const Input = () => {
@@ -37,7 +37,7 @@ const Input = () => {
   }
   return (
     <div >
-      <form className='w-full border border-[rgba(255,255,255,0.2)] rounded-lg py-2 px-4 flex'>
+      <form className='w-full border border-border rounded-lg py-2 px-4 flex z-0'>
         <input type="text" placeholder='Ask anything' className='w-full border-none outline-none' value={data} onChange={changeHandler}/>
         <span onClick={submitHandler}><Button text={"Send"} type={type}/></span>
       </form>

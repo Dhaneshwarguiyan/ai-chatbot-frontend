@@ -1,17 +1,14 @@
 import React from 'react'
 
-const Button = ({ text, type }: { text: string; type: "active" | "inactive" }) => {
-  return (
-    <div>
-      <button
-        className={`${
-          type === "inactive" ? "bg-gray-500" : "bg-green-500"
-        } text-black px-4 py-1 rounded-lg`}
-      >
-        {text}
-      </button>
-    </div>
-  )
+interface buttonPropType {
+  text:string;
+  type:"active"| "inactive";
 }
 
-export default Button
+export default function Button({text,type}:buttonPropType) {
+return (
+  <button className={`${type === 'inactive' ? 'bg-muted cursor-not-allowed': 'bg-primary'} min-w-[100px] h-[40px] rounded-lg text-[16px] font-medium flex items-center justify-center px-3`} type="submit">
+      {text}
+  </button>
+)
+}

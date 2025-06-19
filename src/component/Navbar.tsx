@@ -8,23 +8,23 @@ const Navbar = () => {
   const { data: session } = useSession();
 
   return (
-    <div className='absolute w-full h-[60px] py-4 lg:px-[250px] sm:px-[40px] text-2xl sm:text-lg flex justify-between items-center border border-[rgba(255,255,255,0.2)] font-mono bg-[#0A0A0A]'>
+    <div className='absolute w-full h-[60px] py-4 lg:px-[250px] sm:px-[40px] text-lg sm:text-md flex justify-between items-center border border-border font-inter'>
       <ul className='w-full sm:w-auto flex sm:gap-4 justify-around items-center'>
-        <li><History /></li>
-        <li className='font-bold'>AI-<span className='text-green-500'>CHATBOT</span></li>
+        <li className='text-muted-foreground'><History /></li>
+        <li className='font-bold'>AI-<span className='text-primary'>CHATBOT</span></li>
         <li className='sm:hidden'><Menu /></li>
       </ul>
-      <ul className='hidden sm:flex gap-4 items-center'>
-        <li>Home</li>
+      <ul className='hidden sm:flex gap-8 items-center text-muted-foreground'>
+        <li className='text-foreground'>Home</li>
         <li>Contacts</li>
         <li>About</li>
         {session ? (
-          <li className='hidden sm:block' onClick={() => signOut()}>
+          <li className='hidden sm:block text-foreground' onClick={() => signOut()}>
             <Button text={"Logout"} type='active' />
           </li>
         ) : (
-          <li className='hidden sm:block' onClick={() => signIn()}>
-            <Button text={"Login"} type='active'/>
+          <li className='hidden sm:block text-foreground' onClick={() => signIn()}>
+            <Button text={"Signin"} type='active'/>
           </li>
         )}
       </ul>
