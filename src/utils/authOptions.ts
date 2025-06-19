@@ -34,7 +34,7 @@ export const authOptions:NextAuthOptions = {
                 console.log(name,email,password);
                 if(name){
                     console.log("signup"); 
-                     response = await fetch(`${process.env.BACKEND_URL}/api/user/signup`, {
+                     response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/signup`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ export const authOptions:NextAuthOptions = {
                     });
                 }else{
                     console.log("signin");
-                     response = await fetch(`${process.env.BACKEND_URL}/api/user/signin`, {
+                     response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/signin`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
